@@ -1,0 +1,36 @@
+#cartButton{
+    float:right;
+    width:5%;height: 90%;
+    border:none;
+    background: transparent;
+    cursor: pointer;
+    margin-left: 1%;
+}
+#cartButton:hover{
+    border: black solid 1px;
+    border-radius:10px;
+}
+#accntButton{
+    float:right;
+    width:5%;height: 90%;
+    border:none;
+    background: transparent;
+    cursor: pointer;
+
+    margin-left: 1%;
+}
+#accntButton:hover{
+    border: black solid 1px;
+    border-radius:10px;
+}
+#usrNm{
+    float:right;
+    cursor: pointer;
+    margin-left: 6%;
+    padding:0.5%
+
+}
+#usrNm:hover{
+    border: black solid 1px;
+    border-radius:10px;
+}

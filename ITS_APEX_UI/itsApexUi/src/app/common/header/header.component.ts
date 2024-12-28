@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
-  imports: [],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  standalone: true,
+  styleUrl: './header.component.css',
+  providers: [],
+  imports: [MatToolbarModule,SearchBarComponent],
+  
 })
+// @NgModule({
+//   declarations: [FlexAlignDirective],
+//   imports: [FlexAlignDirective]
+// })
 export class HeaderComponent {
 
 }

@@ -1,0 +1,11 @@
+#loginPopUp{
+    border-radius: 5%;
+    background-color: #dee1f2;
+    position: absolute;
+    
+    z-index: 100;
+    
+}
+div{
+    padding: 2%
+}
