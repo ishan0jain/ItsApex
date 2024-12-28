@@ -4,3 +4,11 @@ ITS_APEX_UI/itsApexUi/.angular/
 .idea
 package-lock.json
 
+services/gradle/wrapper/gradle-wrapper.jar
+.gradle/
+.settings/
+bin/
+
+.project
+gradlew.bat
+HELP.md
