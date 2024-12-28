@@ -1,0 +1,17 @@
+<div style="width: 99vw; height: 90vh; z-index: 20; background-color: #ffffffaf; position: absolute; top: 0; left: 0; display: flex; justify-content: center;">
+    <div id="loginPopUp">
+        <form [formGroup]="fg" (ngSubmit)="onSubmit()">
+            <div>
+                Username:
+                <input type="text" formControlName="username">
+            </div>
+            <div>
+                Password
+                <input type="password" formControlName="password">
+            </div>
+            <div>
+                <button type="submit">Submit</button> 
+            </div>         
+        </form>
+    </div>
+</div>

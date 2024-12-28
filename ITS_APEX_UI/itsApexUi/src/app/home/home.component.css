@@ -1,0 +1,9 @@
+div{
+    align-self: center;
+}
+#cardDiv{
+    display:inline-block;
+    width: 30%;
+    border: black solid;
+    margin: 1%;
+}
