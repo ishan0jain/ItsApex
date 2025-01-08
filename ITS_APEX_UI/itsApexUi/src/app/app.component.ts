@@ -8,6 +8,7 @@ import { ItemCardComponent } from './common/item-card/item-card.component';
 import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AppServiceService } from './app-service.service';
+import { GlobalService } from './service/global.service';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,7 @@ import { AppServiceService } from './app-service.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
-  constructor(private service:AppServiceService){}
+  constructor(private service:AppServiceService, public globalService:GlobalService){}
   title = 'itsApexUi';
   tabList : Array<modulesObject> =[];
   a:modulesObject = {
@@ -39,7 +40,17 @@ export class AppComponent implements OnInit{
   }
   popUp: boolean =false;
   ngOnInit(){
-    this.service.loginService();
+
+    this.service.getUserDetails().subscribe(data=>{
+      if(data!=null){
+        this.globalService.userDetails = data;
+      }
+    }, error => {
+      this.service.loginService().subscribe(data=>{
+        this.globalService.userDetails = data;
+      });
+    });
+      
     // this.service.routingService("A");
     
     this.tabList.push(this.a);
@@ -49,7 +60,6 @@ export class AppComponent implements OnInit{
     this.tabList.push(this.b);
     this.tabList.push(this.b);
     this.tabList.push(this.b);
-    
   }
 
 }

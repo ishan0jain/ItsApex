@@ -4,6 +4,8 @@ package org.itsApex.services.Controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.itsApex.services.Dao.UserDTO;
+import org.itsApex.services.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,9 @@ public class LoginController {
 
 	@Autowired
     AuthenticationManager authenticationManager;
+	
+	@Autowired
+	UserRepo userRepo;
 
    	
     
@@ -31,9 +36,11 @@ public class LoginController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
+            UserDTO user = userRepo.findByUsrNm(authRequest.getUsername());
+            
             HttpSession session = request.getSession(true);
-            session.setAttribute("user", "ishan");
-            return ResponseEntity.ok().body(Map.of("message", "Login successful", "sessionId", session.getId()));
+            session.setAttribute("user", user);
+            return ResponseEntity.ok().body(user);
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body(Map.of("error", "Login Failed", "message", e.getMessage()));
         }

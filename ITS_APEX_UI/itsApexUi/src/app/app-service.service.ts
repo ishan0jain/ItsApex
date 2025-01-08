@@ -8,6 +8,8 @@ import { text } from 'stream/consumers';
 })
 export class AppServiceService {
 
+
+
   constructor(private http: HttpClient) { }
 
   routingService(routeId:String){
@@ -18,7 +20,7 @@ export class AppServiceService {
     this.http.get<String>('http://localhost:8080/home',httpOptions).subscribe(d=>console.log(d));
   }
 
-  loginService(){
+  loginService() : Observable<any>{
     const httpOptions = {
       withCredentials: true, // Important to send cookies
       headers: new HttpHeaders({
@@ -30,11 +32,16 @@ export class AppServiceService {
       "username":"ishan",
       "password":"w341324"
     }
-    this.http.post<String>('http://localhost:8080/login',jsonBody,httpOptions).subscribe(
-      d=>{
-        console.log(d);
-        this.routingService("A");
-      }
-    );
+    return this.http.post<String>('http://localhost:8080/login',jsonBody,httpOptions);
+  }
+
+  getUserDetails() : Observable<any>{
+    const httpOptions = {
+      withCredentials: true, // Important to send cookies
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    }
+      return this.http.post('http://localhost:8080/getUserDTO',null,httpOptions);
   }
 }
