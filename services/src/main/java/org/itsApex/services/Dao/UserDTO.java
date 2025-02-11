@@ -4,6 +4,8 @@ package org.itsApex.services.Dao;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,8 +34,9 @@ public class UserDTO {
 	String actvInd;
 	String password;
 	
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
-	List<UserRole>userRoles;
+	@OneToMany(mappedBy="user")
+	@JsonManagedReference
+	List<UserRole> userRoles;
 
 
 

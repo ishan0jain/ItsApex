@@ -1,0 +1,17 @@
+<div class="upload-container">
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    
+    <!-- Image Preview -->
+    <div *ngIf="previewUrl" class="preview">
+      <p>Preview:</p>
+      <img [src]="previewUrl" alt="Image Preview">
+    </div>
+  
+    <button (click)="uploadImage()" [disabled]="!selectedFile">Upload</button>
+  
+    <!-- Uploaded Image Display -->
+    <div *ngIf="uploadedImageUrl" class="uploaded">
+      <p>Uploaded Image:</p>
+      <img [src]="uploadedImageUrl" alt="Uploaded Image">
+    </div>
+  </div>

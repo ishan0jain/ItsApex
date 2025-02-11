@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './common/header/header.component';
 import { FooterComponent } from './common/footer/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AppServiceService } from './app-service.service';
 import { GlobalService } from './service/global.service';
+import { RegistrationComponent } from './retailer/registration/registration.component';
+
 
 @Component({
   selector: 'app-root',
@@ -21,13 +23,14 @@ import { GlobalService } from './service/global.service';
     MenuTabsComponent,
     ItemCardComponent,
     CommonModule,
-    LoginPageComponent
+    LoginPageComponent,
+    RegistrationComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
-  constructor(private service:AppServiceService, public globalService:GlobalService){}
+  constructor(private router: Router, private service:AppServiceService, public globalService:GlobalService){}
   title = 'itsApexUi';
   tabList : Array<modulesObject> =[];
   a:modulesObject = {
@@ -44,11 +47,15 @@ export class AppComponent implements OnInit{
     this.service.getUserDetails().subscribe(data=>{
       if(data!=null){
         this.globalService.userDetails = data;
+        if(data.userRoles.length == 0 || data.userRoles[0].roleCd == 'C')
+          this.router.navigate(['/consumer']);
+        else if(data.userRoles[0].roleCd == 'S')
+          this.router.navigate(['/seller']);
+        else if(data.userRole[0].roleCd == 'D')
+          this.router.navigate(['/deleivery']);
+        else
+          this.router.navigate(['/consumer']);
       }
-    }, error => {
-      this.service.loginService().subscribe(data=>{
-        this.globalService.userDetails = data;
-      });
     });
       
     // this.service.routingService("A");

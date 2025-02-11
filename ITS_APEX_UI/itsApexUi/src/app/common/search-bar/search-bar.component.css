@@ -10,10 +10,10 @@ body {
 }
 
 .search-container input[type=text] {
-  width: 87%;
+  width: 52%;
   float: left;
   font-size: 17px;
-  padding:5px;
+  padding:15px;
   border: none;
   border-radius: 10px;
   border-bottom-right-radius: 0px;
@@ -23,7 +23,7 @@ body {
 .search-container button {
   width: 10.5%;  
   float: left;
-  padding: 5px;
+  padding: 15px;
   font-size: 17px;
   border: none;
   cursor: pointer;
