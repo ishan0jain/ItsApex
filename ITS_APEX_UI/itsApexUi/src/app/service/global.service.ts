@@ -6,20 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GlobalService {
-  uploadImage(selectedFile: File) {
-    const httpOptions = {
-      withCredentials: true, // Important to send cookies
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      responseType: 'text' as 'json'
-    };
-    let jsonBody  = {
-      "imageId":1,
-      "image":selectedFile
-    }
-    return this.http.post<String>('http://localhost:8080/uploadImage',jsonBody,httpOptions);
-  }
+  uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('imageData',"123");
+
+    return this.http.post<string>('http://localhost:8080/uploadImage', formData, {
+        withCredentials: true, // If authentication is required
+        responseType: 'text' as 'json'
+    });
+}
 
   constructor(private http: HttpClient) { }
   userDetails: any = null;

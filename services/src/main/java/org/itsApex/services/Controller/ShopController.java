@@ -1,5 +1,6 @@
 package org.itsApex.services.Controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.itsApex.services.Dao.ShopDTO;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -45,7 +48,7 @@ public class ShopController {
 	
 	@PostMapping("/uploadImage")
 	@ResponseBody
-	public Byte[] uploadImage(@RequestBody ShopImage shopImage) {
-		return shopImage.getImage();
+	public byte[] uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("imageData") String shopId) throws IOException {
+		return file.getBytes();
 	}
 } 

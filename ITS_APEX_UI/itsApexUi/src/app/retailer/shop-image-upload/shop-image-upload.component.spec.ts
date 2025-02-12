@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShopImageUploadComponent } from './shop-image-upload.component';
+import { MatOption, MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
 
 describe('ShopImageUploadComponent', () => {
   let component: ShopImageUploadComponent;
@@ -8,7 +12,8 @@ describe('ShopImageUploadComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ShopImageUploadComponent]
+      imports: [ShopImageUploadComponent
+      ]
     })
     .compileComponents();
     

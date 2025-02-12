@@ -20,9 +20,11 @@ public class ShopImage {
 	@Id
 	Integer imageId;
 	@Lob
-	Byte[] image;
+	byte[] image;
 	@Column(name="shop_id", insertable=false, updatable=false)
 	Integer shopId;
+	
+	
 	
 	@ManyToOne
 	@JoinColumn(name="shop_id")

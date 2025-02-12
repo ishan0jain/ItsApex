@@ -1,15 +1,22 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../../service/global.service';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-shop-image-upload',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf,NgFor,MatHint,
+    MatFormFieldModule,ShopImageUploadComponent,
+     MatInputModule,MatButtonModule],
   templateUrl: './shop-image-upload.component.html',
   styleUrl: './shop-image-upload.component.css'
 })
 export class ShopImageUploadComponent {
+
+  previewUrls:any[]=[];
 
   constructor(private glblService:GlobalService){}
 
@@ -20,11 +27,11 @@ export class ShopImageUploadComponent {
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-
-      // Show Preview
+      this.uploadImage();
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result;
+        this.previewUrls.push(this.previewUrl);
       };
       reader.readAsDataURL(this.selectedFile);
     }
