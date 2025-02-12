@@ -1,0 +1,55 @@
+.imagePreview{
+    height: 40vh;
+    width: 20vw;
+    background: #fafafa;
+    margin: 8px;
+    display: inline;
+}
+
+.previewContainer{
+    max-height:80vh;
+    overflow: auto;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 2%;
+}
+
+img{
+    width: 20vw;
+    height: 40vh;
+}
+.upload-container{
+    margin: 2%;
+}
+.upload-container input{
+    padding: 2%;
+}
+
+  input[type=file]::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  button{
+
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+  }
+  button:hover{
+    background: #0d45a5;
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background: #0d45a5;
+  }

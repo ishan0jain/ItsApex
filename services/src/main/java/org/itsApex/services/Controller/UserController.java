@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class UserController {
@@ -23,12 +24,15 @@ public class UserController {
 	
 	@GetMapping("/home")	
 	public String home(HttpServletRequest request)  {
+		HttpSession session = request.getSession(true);
+		System.out.println(session.getAttribute("user"));
 		return "a";
 	}
 	@PostMapping("/getUserDTO")
 	@ResponseBody
-	public UserDTO getUserDetaile(@RequestParam("userName") String userName) {
-		UserDTO user=  userRepo.findByUsrNm(userName);
+	public UserDTO getUserDetaile(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		UserDTO user = (UserDTO) session.getAttribute("user");
 		return user;
 	}
 	

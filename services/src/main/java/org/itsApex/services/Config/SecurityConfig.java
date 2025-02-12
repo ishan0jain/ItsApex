@@ -53,7 +53,7 @@ public class SecurityConfig {
 		    	                    .anyRequest().access((authentication, context) -> {
 		    	                        HttpServletRequest request = context.getRequest();
 		    	                        HttpSession session = request.getSession(false); // Check if session exists
-		    	                        if (session != null && !session.isNew()) { // Check if session is valid
+		    	                        if (session != null && !session.isNew() && session.getAttribute("user")!= null) { // Check if session is valid
 		    	                            return new AuthorizationDecision(true); // Permit request if valid
 		    	                        } else {
 		    	                            return new AuthorizationDecision(false); // Deny request if no valid session

@@ -1,0 +1,30 @@
+h2{
+    margin-bottom:3%;
+    align-self: center;
+}
+mat-form-field{
+    width: 100%;;
+}
+div{
+    display:grid;
+    border-radius: 10px;
+    background-color: #fafafa  ;
+    margin: 2%;
+    padding: 2%;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+}
+table{
+    align-self: center;
+    width: 100%;
+}
+tr{
+    width: 100%;
+}
+button{
+    width: 80%;
+    background-color: blueviolet;
+    font-size: large;
+    padding: 6%;
+}

@@ -1,0 +1,17 @@
+<div class="previewContainer">
+  <h3>Preview</h3>
+  <div  class="imagePreview" *ngFor="let url of previewUrls">
+    <img *ngIf="url" [src]="url" alt="Image Preview">
+  </div>
+</div>
+
+<div class="upload-container">
+  <input type="file" accept="image/*" (change)="onFileSelected($event)">
+    <button (click)="uploadImage()" [disabled]="!selectedFile">Upload</button>
+  
+    <!-- Uploaded Image Display -->
+    <!-- <div *ngIf="uploadedImageUrl" class="uploaded">
+      <p>Uploaded Image:</p>
+      <img [src]="uploadedImageUrl" alt="Uploaded Image">
+    </div> -->
+  </div>

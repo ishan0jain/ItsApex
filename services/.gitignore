@@ -1,3 +1,11 @@
+/test/
+/bin/
+/.gradle/
+/.settings/
+.classpath
+.project
+gradlew.bat
+HELP.md
 HELP.md
 .gradle
 build/
