@@ -1,0 +1,210 @@
+.seller-dashboard {
+  max-width: 900px;
+  margin: 32px auto;
+  background: #fff8f3;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #a259ec22;
+  padding: 32px 24px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.dashboard-header h1 {
+  font-size: 2.2rem;
+  color: #a259ec;
+  margin: 0;
+  font-weight: bold;
+}
+.seller-dashboard h2 {
+  font-size: 1.3rem;
+  color: #39393A;
+  margin: 18px 0 12px 0;
+  font-weight: 600;
+}
+
+.product-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-bottom: 32px;
+  align-items: flex-end;
+}
+.product-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-size: 1rem;
+  min-width: 180px;
+  background: #f5e7de;
+  transition: border 0.2s;
+}
+.product-form input:focus {
+  border: 1.5px solid #a259ec;
+  outline: none;
+}
+.product-form button {
+  padding: 10px 24px;
+  border-radius: 8px;
+  background: #a259ec;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #a259ec22;
+}
+.product-form button:disabled {
+  background: #e0e0e0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+.product-form button:not(:disabled):hover {
+  background: #7c3aed;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #a259ec11;
+}
+.product-table th, .product-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #f2bfa4;
+}
+.product-table th {
+  background: #f5e7de;
+  color: #a259ec;
+  font-weight: bold;
+}
+.product-table tr:last-child td {
+  border-bottom: none;
+}
+.product-table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #a259ec22;
+}
+.no-products {
+  color: #e73b37;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.open-form-btn {
+  padding: 12px 32px;
+  border-radius: 8px;
+  background: #a259ec;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px #a259ec22;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.open-form-btn:hover {
+  background: #7c3aed;
+}
+
+.form-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+.form-actions button[type="button"] {
+  background: #e0e0e0;
+  color: #a259ec;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.form-actions button[type="button"]:hover {
+  background: #f2bfa4;
+}
+
+.product-table tr.zebra {
+  background: #f5e7de;
+}
+.product-table tr:hover {
+  background: #e9d6f7;
+  cursor: pointer;
+}
+.view-btn {
+  padding: 7px 18px;
+  border-radius: 6px;
+  background: #a259ec;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #a259ec22;
+}
+.view-btn:hover {
+  background: #7c3aed;
+}
+
+.product-modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff8f3;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px #a259ec44;
+  padding: 32px 28px 24px 28px;
+  min-width: 320px;
+  max-width: 95vw;
+  position: relative;
+  text-align: center;
+  animation: modalIn 0.2s;
+}
+@keyframes modalIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.close-modal {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #a259ec;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.close-modal:hover {
+  color: #e73b37;
+}
+.modal-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px #a259ec22;
+}

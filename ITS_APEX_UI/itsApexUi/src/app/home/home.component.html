@@ -1,11 +1,10 @@
-<div style="width:100vw">
-    <div id="cardDiv">
-        Sell Products
-    </div>
-    <div id="cardDiv">
-        Buy Products
-    </div>
-    <div id="cardDiv">
-        Deliver Products
-    </div>
+<div style="width:100vw; text-align:center; margin-top: 3vh;">
+  <div 
+    id="cardDiv" 
+    *ngFor="let card of cards" 
+    (click)="goTo(card.route)" 
+    style="cursor:pointer; vertical-align:top; min-height:180px;">
+    <h2>{{ card.title }}</h2>
+    <p>{{ card.description }}</p>
+  </div>
 </div>

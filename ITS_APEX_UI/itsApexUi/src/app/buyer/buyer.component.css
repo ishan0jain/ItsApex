@@ -1,0 +1,9 @@
+.item-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px 24px;
+  justify-items: center;
+  align-items: stretch;
+  margin: 2vw 0;
+  width: 100%;
+}

@@ -1,1 +1,61 @@
-<p>seller works!</p>
+<div class="seller-dashboard">
+  <div class="dashboard-header">
+    <h1>Seller Dashboard</h1>
+    <button class="open-form-btn" (click)="openForm()" *ngIf="!showForm">Add Product</button>
+  </div>
+  <form *ngIf="showForm" (ngSubmit)="addProduct()" #productForm="ngForm" class="product-form">
+    <input type="text" placeholder="Product Name" [(ngModel)]="newProduct.name" name="name" required />
+    <input type="text" placeholder="Description" [(ngModel)]="newProduct.description" name="description" required />
+    <input type="number" placeholder="Price (₹)" [(ngModel)]="newProduct.price" name="price" required min="0" />
+    <input type="number" placeholder="Available Quantity" [(ngModel)]="newProduct.quantity" name="quantity" required min="0" />
+    <input type="text" placeholder="Image URL" [(ngModel)]="newProduct.image" name="image" />
+    <input type="number" placeholder="Profit Margin (%)" [(ngModel)]="newProduct.profitMargin" name="profitMargin" required min="0" max="100" />
+    <input type="number" placeholder="Sold Last Month" [(ngModel)]="newProduct.soldLastMonth" name="soldLastMonth" required min="0" />
+    <div class="form-actions">
+      <button type="submit" [disabled]="!productForm.form.valid">Add Product</button>
+      <button type="button" (click)="closeForm()">Cancel</button>
+    </div>
+  </form>
+
+  <h2>Your Products</h2>
+  <table class="product-table" *ngIf="products.length > 0">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price (₹)</th>
+        <th>Available Qty</th>
+        <th>Sold Last Month</th>
+        <th>Profit Margin (%)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products; let i = index" [class.zebra]="i % 2 === 1">
+        <td><img [src]="product.image || 'assets/OIF.jpg'" alt="Product Image" width="60" height="60" style="object-fit:cover; border-radius:8px;"></td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price | number:'1.2-2' }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>{{ product.soldLastMonth }}</td>
+        <td>{{ product.profitMargin }}%</td>
+        <td><button class="view-btn" (click)="viewProduct(product)">View More</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="products.length === 0" class="no-products">No products added yet.</div>
+
+  <div class="product-modal" *ngIf="selectedProduct">
+    <div class="modal-content">
+      <button class="close-modal" (click)="closeProductView()">&times;</button>
+      <img [src]="selectedProduct.image || 'assets/OIF.jpg'" alt="Product Image" class="modal-image">
+      <h2>{{ selectedProduct.name }}</h2>
+      <p><strong>Description:</strong> {{ selectedProduct.description }}</p>
+      <p><strong>Price:</strong> ₹{{ selectedProduct.price | number:'1.2-2' }}</p>
+      <p><strong>Available Quantity:</strong> {{ selectedProduct.quantity }}</p>
+      <p><strong>Sold Last Month:</strong> {{ selectedProduct.soldLastMonth }}</p>
+      <p><strong>Profit Margin:</strong> {{ selectedProduct.profitMargin }}%</p>
+    </div>
+  </div>
+</div>

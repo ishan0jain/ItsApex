@@ -2,3 +2,124 @@ button{
     margin: 1%;
     background-color:#5EBEC4;
 }
+
+.fancy-card-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  margin: 2vw 0;
+}
+
+.fancy-item-card {
+  width: 340px;
+  min-height: 480px;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(162,89,236,0.13);
+  background: #fff8f3;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 12px;
+}
+.fancy-item-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(162,89,236,0.22);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5e7de;
+  border-radius: 14px 14px 0 0;
+  overflow: hidden;
+}
+.slider-image {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 2px 8px #a259ec22;
+}
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  z-index: 2;
+  font-size: 1.5rem;
+  color: #a259ec;
+  border: none;
+  box-shadow: 0 2px 8px #a259ec22;
+  transition: background 0.2s, color 0.2s;
+}
+.slider-btn.left { left: 8px; }
+.slider-btn.right { right: 8px; }
+.slider-btn:hover { background: #a259ec; color: #fff; }
+
+.item-rating {
+  margin: 10px 0 6px 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.star {
+  color: #e0e0e0;
+  font-size: 1.3em;
+  transition: color 0.2s;
+}
+.star.filled {
+  color: #f7b500;
+}
+.rating-value {
+  margin-left: 6px;
+  color: #a259ec;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.item-desc {
+  color: #333;
+  font-size: 1.05rem;
+  margin: 8px 0 12px 0;
+  min-height: 48px;
+}
+.item-price {
+  color: #e73b37;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px 0 0 0;
+  letter-spacing: 1px;
+}
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+button[mat-stroked-button], button[mat-flat-button] {
+  font-weight: 600;
+  border-radius: 8px;
+  min-width: 110px;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px #a259ec22;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+button[mat-stroked-button]:hover, button[mat-flat-button]:hover {
+  box-shadow: 0 4px 16px #a259ec33;
+}
+
+@media (max-width: 600px) {
+  .fancy-item-card {
+    width: 98vw;
+    min-width: unset;
+    max-width: 99vw;
+  }
+  .slider-image, .slider-container {
+    height: 150px;
+  }
+}

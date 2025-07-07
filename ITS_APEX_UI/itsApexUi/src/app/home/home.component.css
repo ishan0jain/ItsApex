@@ -4,6 +4,36 @@ div{
 #cardDiv{
     display:inline-block;
     width: 30%;
-    border: black solid;
-    margin: 1%;
+    min-width: 260px;
+    max-width: 400px;
+    border: 2px solid #222;
+    margin: 1.5%;
+    background: #fff8f3;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    padding: 32px 24px 24px 24px;
+    text-align: center;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+#cardDiv:hover {
+    box-shadow: 0 6px 24px 0 rgba(0,0,0,0.18);
+    border-color: #a259ec;
+    transform: translateY(-4px) scale(1.03);
+    background: #f5e7de;
+}
+
+#cardDiv h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 18px;
+    color: #222;
+}
+
+#cardDiv p {
+    font-size: 1.15rem;
+    color: #333;
+    margin: 0;
 }

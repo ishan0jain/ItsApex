@@ -1,36 +1,124 @@
-#cartButton{
-    float:right;
-    width:5%;height: 90%;
-    border:none;
-    background: transparent;
-    cursor: pointer;
-    margin-left: 1%;
+.apex-toolbar {
+  background: linear-gradient(90deg, #f2bfa4 0%, #f5e7de 100%);
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.08);
+  border-radius: 0 0 18px 18px;
+  min-height: 70px;
+  padding: 0 2vw;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-#cartButton:hover{
-    border: black solid 1px;
-    border-radius:10px;
-}
-#accntButton{
-    float:right;
-    width:5%;height: 90%;
-    border:none;
-    background: transparent;
-    cursor: pointer;
 
-    margin-left: 1%;
+.apex-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
 }
-#accntButton:hover{
-    border: black solid 1px;
-    border-radius:10px;
-}
-#usrNm{
-    float:right;
-    cursor: pointer;
-    margin-left: 6%;
-    padding:0.5%
 
+.apex-logo-title {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: filter 0.2s;
 }
-#usrNm:hover{
-    border: black solid 1px;
-    border-radius:10px;
+.apex-logo-title:hover {
+  filter: brightness(1.1) drop-shadow(0 2px 8px #a259ec44);
+}
+.apex-logo {
+  height: 48px;
+  width: 48px;
+  border-radius: 10px;
+  margin-right: 10px;
+  box-shadow: 0 2px 8px 0 rgba(162,89,236,0.08);
+}
+.apex-title {
+  font-family: 'Verdana', Geneva, Tahoma, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #a259ec;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.apex-search {
+  flex: 1 1 40%;
+  margin: 0 3vw;
+  min-width: 200px;
+}
+
+.apex-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+}
+
+.apex-username {
+  font-size: 1.1rem;
+  color: #222;
+  padding: 0.5em 1.2em;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.7);
+  margin-right: 0.5vw;
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.apex-username:hover {
+  background: #f2bfa4;
+  box-shadow: 0 2px 8px #a259ec33;
+}
+
+.apex-icon-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  padding: 6px;
+  margin: 0 0.2vw;
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.apex-icon-btn:hover {
+  background: #f5e7de;
+  box-shadow: 0 2px 8px #a259ec33;
+}
+
+.apex-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #e73b37;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 7px;
+  min-width: 22px;
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px #e73b3744;
+  border: 2px solid #fff;
+}
+
+@media (max-width: 900px) {
+  .apex-toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .apex-search {
+    margin: 10px 0;
+    min-width: 120px;
+  }
+  .apex-header-actions {
+    justify-content: flex-end;
+    gap: 0.7vw;
+  }
 }
