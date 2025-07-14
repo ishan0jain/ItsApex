@@ -10,6 +10,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { AppServiceService } from './app-service.service';
 import { GlobalService } from './service/global.service';
 import { RegistrationComponent } from './retailer/registration/registration.component';
+import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { RegistrationComponent } from './retailer/registration/registration.comp
     ItemCardComponent,
     CommonModule,
     LoginPageComponent,
-    RegistrationComponent,
+    RegistrationPageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -41,20 +42,21 @@ export class AppComponent implements OnInit{
     id: "app-buyer",
     name: "Buyer"
   }
-  popUp: boolean =false;
+  loginPopUp: boolean =true;
   ngOnInit(){
 
     this.service.getUserDetails().subscribe(data=>{
       if(data!=null){
         this.globalService.userDetails = data;
-        if(data.userRoles.length == 0 || data.userRoles[0].roleCd == 'C')
-          this.router.navigate(['/consumer']);
-        else if(data.userRoles[0].roleCd == 'S')
-          this.router.navigate(['/seller']);
-        else if(data.userRole[0].roleCd == 'D')
-          this.router.navigate(['/deleivery']);
-        else
-          this.router.navigate(['/consumer']);
+        this.loginPopUp = false;
+        // if(data.userRoles.length == 0 || data.userRoles[0].roleCd == 'C')
+        //   this.router.navigate(['/consumer']);
+        // else if(data.userRoles[0].roleCd == 'S')
+        //   this.router.navigate(['/seller']);
+        // else if(data.userRole[0].roleCd == 'D')
+        //   this.router.navigate(['/deleivery']);
+        // else
+        //   this.router.navigate(['/consumer']);
       }
     });
       

@@ -1,17 +1,24 @@
-<div style="width:100%; height: 90vh; z-index: 20; background-color: #ffffffaf; position: absolute; top: 0; left: 0; display: flex; justify-content: center;">
-    <div id="loginPopUp">
-        <form [formGroup]="fg" (ngSubmit)="onSubmit()">
-            <div>
-                Username:
-                <input type="text" formControlName="username">
-            </div>
-            <div>
-                Password
-                <input type="password" formControlName="password">
-            </div>
-            <div>
-                <button type="submit">Submit</button> 
-            </div>         
-        </form>
+<div class="login-overlay">
+  <div id="loginPopUp" class="login-popup">
+    <form [formGroup]="fg" (ngSubmit)="onSubmit()">
+      <div>
+        Username:
+        <input type="text" formControlName="username">
+      </div>
+      <div>
+        Password
+        <input type="password" formControlName="password">
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    <div class="divider">
+      <span>or</span>
     </div>
+    <div id="google-signin-btn" class="google-btn-container"></div>
+    <div class="register-link">
+      <a (click)="registerClick.emit()" style="cursor:pointer;">Don't have an account? Register</a>
+    </div>
+  </div>
 </div>

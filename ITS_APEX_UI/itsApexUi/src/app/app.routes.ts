@@ -5,6 +5,7 @@ import { CarierComponent } from './carier/carier.component';
 import { RetailerComponent } from './retailer/retailer.component';
 import { HomeComponent } from './home/home.component';
 import { SellerComponent } from './seller/seller.component';
+import { RegistrationPageComponent } from './registration-page/registration-page.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,10 @@ export const routes: Routes = [
     { // child route component that the router renders
         path: 'retailer',
         component: SellerComponent, // another child route component that the router renders
+    },
+    {
+        path: 'register',
+        component: RegistrationPageComponent
     },
 ];
   

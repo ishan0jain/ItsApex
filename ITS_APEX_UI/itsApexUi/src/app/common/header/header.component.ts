@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
   standalone: true,
   styleUrl: './header.component.css',
   providers: [],
-  imports: [MatToolbarModule,SearchBarComponent],
+  imports: [MatToolbarModule,SearchBarComponent, CommonModule],
 })
 // @NgModule({
 //   declarations: [FlexAlignDirective],
