@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepo extends JpaRepository<UserDTO,Integer>{
 	UserDTO findByUsrNm(String usrNm);
+	UserDTO findTopByOrderByUserIdDesc();
 }

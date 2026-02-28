@@ -40,5 +40,16 @@ Additionally, delivery personnel can register on the platform, define delivery z
 - Authentication: Spring Security for user authentication and authorization
 - Build Tools: Maven for backend and Angular CLI for frontend
 
+## Implementation Notes
+- Demo login (seeded on first run): `demo / demo123`
+- Core API endpoints:
+  - `GET /shops`, `POST /shops`, `POST /shops/{id}/images`
+  - `GET /products`, `POST /products`, `PATCH /products/{id}/inventory`
+  - `POST /orders`, `GET /orders`, `PATCH /orders/{id}/status`
+  - `POST /delivery/agents`, `GET /delivery/tasks`, `POST /delivery/tasks/assign`
+  - `GET /registration/fields`, `POST /registration/answers`
+- UI routes:
+  - `/` overview, `/consumer` buyer, `/retailer` retailer, `/delivery` carrier, `/login` sign-in
+
 
 

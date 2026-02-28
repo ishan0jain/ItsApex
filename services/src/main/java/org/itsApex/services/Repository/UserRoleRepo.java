@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRoleRepo extends JpaRepository<UserRole,Integer>{
 	List<UserRole> findByUserId(Integer userId);
+	UserRole findTopByOrderByUserRoleIdDesc();
 }

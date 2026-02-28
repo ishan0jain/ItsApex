@@ -1,0 +1,26 @@
+.retailer {
+  display: grid;
+  gap: 2rem;
+}
+
+.shop-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.shop-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(16, 37, 49, 0.04);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shop-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(16, 37, 49, 0.12);
+}

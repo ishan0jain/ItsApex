@@ -1,0 +1,89 @@
+<section class="section shop-detail" *ngIf="shop; else loading">
+    <div class="shop-header">
+        <div>
+            <span class="pill">Shop detail</span>
+            <h2>{{ shop.shopName }}</h2>
+            <p>{{ shop.description }}</p>
+            <div class="meta">
+                <span>{{ shop.address }}, {{ shop.city }}</span>
+                <span>Radius: {{ shop.radius || 0 }} km</span>
+                <span>Type: {{ shop.shopType }}</span>
+            </div>
+        </div>
+        <a class="ghost" routerLink="/retailer">Back to shops</a>
+    </div>
+
+    <div class="grid grid-2">
+        <div class="card">
+            <h3>Inventory</h3>
+            <form [formGroup]="productForm" class="product-form">
+                <div class="grid grid-2">
+                    <div class="input">
+                        <label>Product name</label>
+                        <input formControlName="name">
+                    </div>
+                    <div class="input">
+                        <label>Category</label>
+                        <input formControlName="category">
+                    </div>
+                    <div class="input">
+                        <label>Price</label>
+                        <input type="number" formControlName="price">
+                    </div>
+                    <div class="input">
+                        <label>Quantity</label>
+                        <input type="number" formControlName="quantityAvailable">
+                    </div>
+                </div>
+                <div class="input">
+                    <label>Description</label>
+                    <textarea formControlName="description"></textarea>
+                </div>
+                <div class="input">
+                    <label>Tags</label>
+                    <input formControlName="tags">
+                </div>
+                <button class="cta" type="button" (click)="addProduct()">Save product</button>
+                <p class="status" *ngIf="message">{{ message }}</p>
+            </form>
+            <div class="product-list">
+                <div class="product-row" *ngFor="let product of products">
+                    <div>
+                        <h4>{{ product.name }}</h4>
+                        <p>{{ product.description }}</p>
+                    </div>
+                    <div>
+                        <span class="badge">{{ product.category }}</span>
+                        <p>₹{{ product.price }}</p>
+                        <p>Stock: {{ product.quantityAvailable }}</p>
+                    </div>
+                </div>
+                <p *ngIf="products.length === 0">No products yet.</p>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Orders</h3>
+            <div class="order-list">
+                <div class="order-row" *ngFor="let order of orders">
+                    <div>
+                        <h4>#{{ order.orderId }} {{ order.buyerName }}</h4>
+                        <p>{{ order.deliveryAddress }}</p>
+                    </div>
+                    <div>
+                        <span class="badge">{{ order.status }}</span>
+                        <p>₹{{ order.totalAmount }}</p>
+                    </div>
+                </div>
+                <p *ngIf="orders.length === 0">No orders yet.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #loading>
+    <section class="section">
+        <div class="card">
+            <p>Loading shop details...</p>
+        </div>
+    </section>
+</ng-template>

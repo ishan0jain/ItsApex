@@ -1,15 +1,10 @@
 package org.itsApex.services.Controller;
 
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
 import org.itsApex.services.Dao.UserDTO;
 import org.itsApex.services.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +22,13 @@ public class UserController {
 		HttpSession session = request.getSession(true);
 		System.out.println(session.getAttribute("user"));
 		return "a";
+	}
+	
+	@GetMapping("/me")
+	@ResponseBody
+	public UserDTO me(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		return (UserDTO) session.getAttribute("user");
 	}
 	@PostMapping("/getUserDTO")
 	@ResponseBody

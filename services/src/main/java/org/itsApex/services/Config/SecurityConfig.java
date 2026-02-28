@@ -1,8 +1,6 @@
 package org.itsApex.services.Config;
 
 import java.util.Arrays;
-
-import org.apache.catalina.filters.CorsFilter;
 import org.itsApex.services.userService.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +10,9 @@ import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
@@ -25,6 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 
 @Configuration
 @EnableWebSecurity
@@ -49,7 +45,15 @@ public class SecurityConfig {
 		            .csrf(csrf -> csrf.disable())// Disable CSRF protection
 		            .cors(cors->cors.configurationSource(apiConfigurationSource()))
 		            .authorizeHttpRequests(auth -> auth
-		    		                .requestMatchers("/login").permitAll() // Allow public access to /login
+		    		                .requestMatchers("/login", "/logout", "/registration/**").permitAll()
+		    		                .requestMatchers(HttpMethod.GET, "/products/**", "/shops/**").permitAll()
+		    		                .requestMatchers(HttpMethod.POST, "/products/**").permitAll()
+		    		                .requestMatchers(HttpMethod.PATCH, "/products/**").permitAll()
+		    		                .requestMatchers(HttpMethod.GET, "/orders/**").permitAll()
+		    		                .requestMatchers(HttpMethod.POST, "/shops/**").permitAll()
+		    		                .requestMatchers(HttpMethod.POST, "/orders/**").permitAll()
+		    		                .requestMatchers(HttpMethod.POST, "/delivery/**").permitAll()
+		    		                .requestMatchers(HttpMethod.GET, "/delivery/**").permitAll()
 		    	                    .anyRequest().access((authentication, context) -> {
 		    	                        HttpServletRequest request = context.getRequest();
 		    	                        HttpSession session = request.getSession(false); // Check if session exists

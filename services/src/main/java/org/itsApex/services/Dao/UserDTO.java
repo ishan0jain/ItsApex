@@ -4,6 +4,7 @@ package org.itsApex.services.Dao;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -32,6 +33,7 @@ public class UserDTO {
 	String lastNm;
 	Date lastLoginTs;
 	String actvInd;
+	@JsonIgnore
 	String password;
 	
 	@OneToMany(mappedBy="user")

@@ -1,56 +1,35 @@
-import { Component } from '@angular/core';
-import { GlobalService } from '../../service/global.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { MatFormFieldModule, MatHint } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-shop-image-upload',
   standalone: true,
-  imports: [NgIf,NgFor,MatHint,
-    MatFormFieldModule,ShopImageUploadComponent,
-     MatInputModule,MatButtonModule],
+  imports: [NgIf, NgFor],
   templateUrl: './shop-image-upload.component.html',
   styleUrl: './shop-image-upload.component.css'
 })
 export class ShopImageUploadComponent {
+  @Output() filesSelected = new EventEmitter<File[]>();
 
-  previewUrls:any[]=[];
-
-  constructor(private glblService:GlobalService){}
-
-  selectedFile!: File;
-  previewUrl: string | ArrayBuffer | null = null;
-  uploadedImageUrl: string | null = null;
+  previewUrls: string[] = [];
+  selectedFiles: File[] = [];
 
   onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.uploadImage();
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.previewUrl = reader.result;
-        this.previewUrls.push(this.previewUrl);
-      };
-      reader.readAsDataURL(this.selectedFile);
-    }
-  }
-
-  uploadImage() {
-    if (!this.selectedFile) {
-      alert("Please select an image first!");
+    const files = Array.from(event.target.files || []) as File[];
+    if (files.length === 0) {
       return;
     }
-
-    this.glblService.uploadImage(this.selectedFile).subscribe(data=>{
-      console.log(data);
+    this.selectedFiles = files;
+    this.previewUrls = [];
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result) {
+          this.previewUrls.push(reader.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
     });
-
-    // Simulate successful upload (Replace with actual API call)
-    setTimeout(() => {
-      this.uploadedImageUrl = this.previewUrl as string; // Normally, use response URL
-      alert("Image uploaded successfully!");
-    }, 1000);
+    this.filesSelected.emit(this.selectedFiles);
   }
 }

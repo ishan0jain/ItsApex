@@ -1,1 +1,81 @@
-<p>carier works!</p>
+<section class="section delivery">
+    <div class="grid grid-2">
+        <div class="card">
+            <h2>Register delivery partner</h2>
+            <form [formGroup]="agentForm">
+                <div class="grid grid-2">
+                    <div class="input">
+                        <label>Name</label>
+                        <input formControlName="name" placeholder="Agent name">
+                    </div>
+                    <div class="input">
+                        <label>Phone</label>
+                        <input formControlName="phone" placeholder="Contact number">
+                    </div>
+                    <div class="input">
+                        <label>Zones</label>
+                        <input formControlName="zones" placeholder="City, postal code">
+                    </div>
+                    <div class="input">
+                        <label>Latitude</label>
+                        <input formControlName="latitude" placeholder="Latitude">
+                    </div>
+                    <div class="input">
+                        <label>Longitude</label>
+                        <input formControlName="longitude" placeholder="Longitude">
+                    </div>
+                </div>
+                <button class="cta" type="button" (click)="registerAgent()">Register agent</button>
+                <p class="status" *ngIf="message">{{ message }}</p>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Estimate payout</h2>
+            <form [formGroup]="estimateForm">
+                <div class="grid grid-2">
+                    <div class="input">
+                        <label>Distance (km)</label>
+                        <input type="number" formControlName="distanceKm">
+                    </div>
+                    <div class="input">
+                        <label>Minutes</label>
+                        <input type="number" formControlName="estimatedMinutes">
+                    </div>
+                </div>
+                <button class="ghost" type="button" (click)="calculateEstimate()">Calculate</button>
+            </form>
+            <div class="estimate" *ngIf="estimate">
+                <p>Estimated payout: ₹{{ estimate.payoutAmount }}</p>
+                <p>Distance: {{ estimate.distanceKm }} km</p>
+                <p>Time: {{ estimate.estimatedMinutes }} minutes</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card tasks">
+        <div class="tasks-header">
+            <h2>Available delivery tasks</h2>
+            <button class="ghost" type="button" (click)="refreshTasks()">Refresh</button>
+        </div>
+        <form [formGroup]="assignForm" class="assign-form">
+            <div class="input">
+                <label>Assign by order ID</label>
+                <input formControlName="orderId" placeholder="Order ID">
+            </div>
+            <button class="cta" type="button" (click)="assignFromForm()">Assign task</button>
+        </form>
+        <div class="task-list">
+            <div class="task" *ngFor="let task of tasks">
+                <div>
+                    <h4>Order #{{ task.orderId }}</h4>
+                    <p>Status: {{ task.status }}</p>
+                </div>
+                <div>
+                    <p>Distance: {{ task.distanceKm || 0 }} km</p>
+                    <p>Payout: ₹{{ task.payoutAmount || 0 }}</p>
+                </div>
+            </div>
+            <p *ngIf="tasks.length === 0">No tasks assigned yet. Use auto-assign after an order is created.</p>
+        </div>
+    </div>
+</section>

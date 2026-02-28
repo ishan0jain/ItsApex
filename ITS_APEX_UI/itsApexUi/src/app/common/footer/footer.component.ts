@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,15 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './footer.component.html',
   standalone: true,
   styleUrl: './footer.component.css',
-  imports: [CommonModule]
+  imports: []
 })
 export class FooterComponent {
-  popUp: boolean =false;
-
-  onclick(){
-    console.log("clicked")
-    this.popUp =!this.popUp;
-  }
-  
 }
 

@@ -28,3 +28,23 @@ button{
     font-size: large;
     padding: 6%;
 }
+.registration-form {
+  display: grid;
+  gap: 1.4rem;
+  margin-top: 1.5rem;
+}
+
+.dynamic-section {
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(16, 37, 49, 0.04);
+}
+
+.actions {
+  margin-top: 0.5rem;
+}
+
+.status {
+  font-weight: 600;
+  color: var(--ocean);
+}

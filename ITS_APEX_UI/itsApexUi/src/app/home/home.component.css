@@ -7,3 +7,53 @@ div{
     border: black solid;
     margin: 1%;
 }
+.hero {
+  display: grid;
+  gap: 2.5rem;
+  padding: 4rem 6vw;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2.6rem, 4vw, 3.6rem);
+}
+
+.hero-copy p {
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  max-width: 520px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.hero-stats div {
+  background: rgba(16, 37, 49, 0.05);
+  padding: 1rem;
+  border-radius: 16px;
+}
+
+.hero-card .card {
+  transform: rotate(-1deg);
+  border: 1px solid rgba(16, 37, 49, 0.08);
+}
+
+.metric h4 {
+  margin: 0.4rem 0;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+  }
+}

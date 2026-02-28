@@ -1,17 +1,23 @@
-<div style="width:100%; height: 90vh; z-index: 20; background-color: #ffffffaf; position: absolute; top: 0; left: 0; display: flex; justify-content: center;">
-    <div id="loginPopUp">
+<section class="login-page">
+    <div class="login-card">
+        <div class="pill">Secure access</div>
+        <h2>Welcome back to ItsApex</h2>
+        <p>Sign in to manage shops, track inventory, and coordinate delivery tasks.</p>
+
         <form [formGroup]="fg" (ngSubmit)="onSubmit()">
-            <div>
-                Username:
-                <input type="text" formControlName="username">
+            <div class="input">
+                <label>Username</label>
+                <input type="text" formControlName="username" placeholder="demo">
             </div>
-            <div>
-                Password
-                <input type="password" formControlName="password">
+            <div class="input">
+                <label>Password</label>
+                <input type="password" formControlName="password" placeholder="demo123">
             </div>
-            <div>
-                <button type="submit">Submit</button> 
-            </div>         
+            <div class="actions">
+                <button class="cta" type="submit">Sign in</button>
+                <button class="ghost" type="button" routerLink="/">Back to home</button>
+            </div>
         </form>
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
     </div>
-</div>
+</section>

@@ -9,3 +9,37 @@
 div{
     padding: 2%
 }
+.login-page {
+  min-height: 80vh;
+  display: grid;
+  place-items: center;
+  padding: 4rem 6vw;
+}
+
+.login-card {
+  max-width: 480px;
+  width: 100%;
+  background: #fff;
+  border-radius: 28px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 1.2rem;
+}
+
+.login-card p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.error {
+  color: var(--coral);
+  font-weight: 600;
+}

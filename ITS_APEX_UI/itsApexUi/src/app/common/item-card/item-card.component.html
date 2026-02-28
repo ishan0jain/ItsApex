@@ -1,21 +1,20 @@
-<div >
-
-<div style="width: 20%; height: 4%; ; float: left; margin-top: 1%; margin-left: 1%;">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>sdfdas</mat-card-title>
-      <mat-card-subtitle>kljasd</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="../../../assets/OIF.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>item desc
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-stroked-button>Add To Cart</button>
-      <button mat-stroked-button>Buy</button>
-    </mat-card-actions>
-  </mat-card>
-</div> 
+<div class="product-card">
+  <div class="card-header">
+    <div>
+      <h4>{{ product?.name || 'Unnamed item' }}</h4>
+      <span class="category">{{ product?.category || 'General' }}</span>
+    </div>
+    <span class="badge" *ngIf="product?.quantityAvailable === 0">Out of stock</span>
+  </div>
+  <img class="card-image" src="../../../assets/OIF.jpg" alt="Product image">
+  <div class="card-body">
+    <p>{{ product?.description || 'No description available.' }}</p>
+    <p class="price" *ngIf="product?.price">₹{{ product?.price }}</p>
+    <p class="stock" *ngIf="product?.quantityAvailable !== null">Stock: {{ product?.quantityAvailable }}</p>
+  </div>
+  <div class="card-actions">
+    <button class="ghost" type="button" (click)="onAdd()">Add to cart</button>
+    <button class="cta" type="button" (click)="onBuy()">Buy now</button>
+  </div>
 </div>
   

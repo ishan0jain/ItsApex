@@ -1,0 +1,48 @@
+.delivery {
+  display: grid;
+  gap: 2rem;
+}
+
+.tasks {
+  margin-top: 2rem;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(16, 37, 49, 0.04);
+}
+
+.estimate {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 16px;
+  background: rgba(31, 111, 120, 0.1);
+}
+
+.assign-form {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.status {
+  margin-top: 0.6rem;
+  font-weight: 600;
+  color: var(--ocean);
+}

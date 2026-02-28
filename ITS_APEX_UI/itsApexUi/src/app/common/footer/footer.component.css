@@ -1,0 +1,27 @@
+.site-footer {
+  display: grid;
+  gap: 1.5rem;
+  padding: 2.5rem 6vw;
+  background: rgba(16, 37, 49, 0.95);
+  color: #fff;
+}
+
+.site-footer p {
+  margin: 0.4rem 0 0;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.footer-links,
+.footer-meta {
+  display: flex;
+  gap: 1.4rem;
+  flex-wrap: wrap;
+  font-weight: 500;
+}
+
+@media (min-width: 900px) {
+  .site-footer {
+    grid-template-columns: 2fr 2fr 1fr;
+    align-items: center;
+  }
+}

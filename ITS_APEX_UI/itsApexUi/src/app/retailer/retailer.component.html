@@ -1,1 +1,27 @@
-<p>retailer works!</p>
+<section class="section retailer">
+    <div class="grid grid-2">
+        <div class="card">
+            <h2>Retailer onboarding</h2>
+            <p>Register a shop and complete compliance fields. You can add multiple shops.</p>
+            <app-registration (shopCreated)="loadShops()"></app-registration>
+        </div>
+        <div class="card">
+            <h2>Your shops</h2>
+            <p>Click a shop to manage inventory and orders.</p>
+            <div class="shop-list">
+                <div class="shop-row" *ngFor="let shop of shops" (click)="openShop(shop.shopId)">
+                    <div>
+                        <h4>{{ shop.shopName }}</h4>
+                        <p>{{ shop.address }}, {{ shop.city }}</p>
+                        <span class="badge">{{ shop.shopType }}</span>
+                    </div>
+                    <div>
+                        <p>Radius: {{ shop.radius || 0 }} km</p>
+                        <p>Contact: {{ shop.contactPhone }}</p>
+                    </div>
+                </div>
+                <p *ngIf="shops.length === 0">No shops yet. Register your first shop.</p>
+            </div>
+        </div>
+    </div>
+</section>

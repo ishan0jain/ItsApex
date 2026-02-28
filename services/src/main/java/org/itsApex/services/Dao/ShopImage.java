@@ -1,9 +1,12 @@
 package org.itsApex.services.Dao;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
@@ -18,9 +21,13 @@ import lombok.Setter;
 @Setter
 public class ShopImage {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer imageId;
 	@Lob
+	@JsonIgnore
 	byte[] image;
+	String contentType;
+	String fileName;
 	@Column(name="shop_id", insertable=false, updatable=false)
 	Integer shopId;
 	

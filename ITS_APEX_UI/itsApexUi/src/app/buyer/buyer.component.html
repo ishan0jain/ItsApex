@@ -1,2 +1,59 @@
-<p>buyer works!</p>
-<app-item-card></app-item-card>
+<section class="section buyer">
+    <div class="buyer-header">
+        <div>
+            <span class="pill">Trusted retailers</span>
+            <h2>Browse and order with confidence</h2>
+            <p>Every product is tied to a verified shop with compliance-ready onboarding.</p>
+        </div>
+        <div class="input search">
+            <label>Search products</label>
+            <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name, category, or description">
+        </div>
+    </div>
+    <p class="order-message" *ngIf="orderMessage">{{ orderMessage }}</p>
+
+    <div class="grid grid-3">
+        <app-item-card
+            *ngFor="let product of filteredProducts()"
+            [product]="product"
+            (addToCart)="onAdd($event)"
+            (buyNow)="onBuy($event)">
+        </app-item-card>
+    </div>
+
+    <div class="order-panel card" *ngIf="selectedProduct">
+        <h3>Quick order: {{ selectedProduct?.name }}</h3>
+        <form [formGroup]="orderForm">
+            <div class="grid grid-2">
+                <div class="input">
+                    <label>Name</label>
+                    <input formControlName="buyerName" placeholder="Buyer name">
+                </div>
+                <div class="input">
+                    <label>Phone</label>
+                    <input formControlName="buyerPhone" placeholder="Contact number">
+                </div>
+                <div class="input">
+                    <label>Delivery address</label>
+                    <input formControlName="deliveryAddress" placeholder="Drop-off location">
+                </div>
+                <div class="input">
+                    <label>Quantity</label>
+                    <input type="number" min="1" formControlName="quantity">
+                </div>
+            </div>
+            <div class="input">
+                <label>Custom modifications</label>
+                <textarea formControlName="customNote" placeholder="Add custom notes for the retailer"></textarea>
+            </div>
+            <div class="input">
+                <label>Delivery notes</label>
+                <textarea formControlName="deliveryNotes" placeholder="Leave instructions for the carrier"></textarea>
+            </div>
+            <div class="actions">
+                <button class="cta" type="button" (click)="placeOrder()">Place order</button>
+                <button class="ghost" type="button" (click)="selectedProduct = null">Cancel</button>
+            </div>
+        </form>
+    </div>
+</section>
