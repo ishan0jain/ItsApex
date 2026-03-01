@@ -31,8 +31,16 @@
                         <input type="number" formControlName="price">
                     </div>
                     <div class="input">
+                        <label>Currency</label>
+                        <input formControlName="currency">
+                    </div>
+                    <div class="input">
                         <label>Quantity</label>
                         <input type="number" formControlName="quantityAvailable">
+                    </div>
+                    <div class="input">
+                        <label>Image URL</label>
+                        <input formControlName="imageUrl">
                     </div>
                 </div>
                 <div class="input">
@@ -42,6 +50,12 @@
                 <div class="input">
                     <label>Tags</label>
                     <input formControlName="tags">
+                </div>
+                <div class="input">
+                    <label>
+                        <input type="checkbox" formControlName="active">
+                        Active
+                    </label>
                 </div>
                 <button class="cta" type="button" (click)="addProduct()">Save product</button>
                 <p class="status" *ngIf="message">{{ message }}</p>

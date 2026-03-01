@@ -38,6 +38,7 @@ public class Product {
 	String category;
 	String tags;
 	BigDecimal price;
+	String currency;
 	Integer quantityAvailable;
 	String imageUrl;
 	Boolean active;

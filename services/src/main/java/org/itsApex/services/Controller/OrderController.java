@@ -90,7 +90,7 @@ public class OrderController {
 	}
 
 	@GetMapping("/orders")
-	public List<OrderHeader> listOrders(@RequestParam(required = false) Integer shopId) {
+	public List<OrderHeader> listOrders(@RequestParam(name = "shopId", required = false) Integer shopId) {
 		if (shopId == null) {
 			return orderRepo.findAll();
 		}
@@ -98,7 +98,7 @@ public class OrderController {
 	}
 
 	@PatchMapping("/orders/{orderId}/status")
-	public ResponseEntity<OrderHeader> updateStatus(@PathVariable Integer orderId, @RequestParam String status, @RequestParam(required = false) String paymentStatus) {
+	public ResponseEntity<OrderHeader> updateStatus(@PathVariable("orderId") Integer orderId, @RequestParam("status") String status, @RequestParam(name = "paymentStatus", required = false) String paymentStatus) {
 		Optional<OrderHeader> order = orderRepo.findById(orderId);
 		if (order.isEmpty()) {
 			return ResponseEntity.notFound().build();

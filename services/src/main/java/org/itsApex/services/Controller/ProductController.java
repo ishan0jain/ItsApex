@@ -28,7 +28,7 @@ public class ProductController {
 	ShopRepo shopRepo;
 
 	@GetMapping("/products")
-	public List<Product> listProducts(@RequestParam(required = false) Integer shopId) {
+	public List<Product> listProducts(@RequestParam(name = "shopId", required = false) Integer shopId) {
 		if (shopId == null) {
 			return productRepo.findAll();
 		}
@@ -36,7 +36,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/products/{productId}")
-	public ResponseEntity<Product> getProduct(@PathVariable Integer productId) {
+	public ResponseEntity<Product> getProduct(@PathVariable("productId") Integer productId) {
 		Optional<Product> product = productRepo.findById(productId);
 		return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
@@ -50,6 +50,9 @@ public class ProductController {
 			}
 			product.setShop(shop);
 		}
+		if (product.getCurrency() == null || product.getCurrency().isBlank()) {
+			product.setCurrency("INR");
+		}
 		if (product.getCreatedTs() == null) {
 			product.setCreatedTs(Instant.now());
 		}
@@ -60,7 +63,7 @@ public class ProductController {
 	}
 
 	@PatchMapping("/products/{productId}/inventory")
-	public ResponseEntity<Product> updateInventory(@PathVariable Integer productId, @RequestParam Integer quantityAvailable) {
+	public ResponseEntity<Product> updateInventory(@PathVariable("productId") Integer productId, @RequestParam("quantityAvailable") Integer quantityAvailable) {
 		Optional<Product> product = productRepo.findById(productId);
 		if (product.isEmpty()) {
 			return ResponseEntity.notFound().build();

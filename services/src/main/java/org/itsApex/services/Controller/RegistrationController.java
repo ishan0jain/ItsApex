@@ -27,7 +27,7 @@ public class RegistrationController {
 	RegulationAnswerRepo regulationAnswerRepo;
 
 	@GetMapping("/registration/fields")
-	public List<RegulationField> getFields(@RequestParam(required = false) String merchantType) {
+	public List<RegulationField> getFields(@RequestParam(name = "merchantType", required = false) String merchantType) {
 		List<RegulationField> fields = new ArrayList<>();
 		fields.addAll(regulationFieldRepo.findByMerchantTypeIgnoreCaseAndActiveTrueOrderByDisplayOrderAsc("ALL"));
 		if (merchantType != null && !merchantType.isBlank()) {

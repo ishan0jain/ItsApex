@@ -50,7 +50,7 @@ public class ShopController {
 	
 	@GetMapping("/shops/{shopId}")
 	@ResponseBody
-	public ResponseEntity<ShopDTO> getShop(@PathVariable Integer shopId) {
+	public ResponseEntity<ShopDTO> getShop(@PathVariable("shopId") Integer shopId) {
 		Optional<ShopDTO> shop = shopRepo.findById(shopId);
 		return shop.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
@@ -71,7 +71,7 @@ public class ShopController {
 	
 	@PostMapping("/shops/{shopId}/images")
 	@ResponseBody
-	public ResponseEntity<ShopImage> uploadImage(@PathVariable Integer shopId, @RequestParam("file") MultipartFile file) throws IOException {
+	public ResponseEntity<ShopImage> uploadImage(@PathVariable("shopId") Integer shopId, @RequestParam("file") MultipartFile file) throws IOException {
 		Optional<ShopDTO> shop = shopRepo.findById(shopId);
 		if (shop.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -87,7 +87,7 @@ public class ShopController {
 	}
 	
 	@GetMapping("/shops/{shopId}/images/{imageId}")
-	public ResponseEntity<byte[]> getImage(@PathVariable Integer shopId, @PathVariable Integer imageId) {
+	public ResponseEntity<byte[]> getImage(@PathVariable("shopId") Integer shopId, @PathVariable("imageId") Integer imageId) {
 		Optional<ShopDTO> shop = shopRepo.findById(shopId);
 		if (shop.isEmpty()) {
 			return ResponseEntity.notFound().build();

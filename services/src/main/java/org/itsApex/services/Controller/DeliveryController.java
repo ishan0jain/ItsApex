@@ -60,7 +60,7 @@ public class DeliveryController {
 	}
 
 	@GetMapping("/delivery/tasks")
-	public List<DeliveryTask> listTasks(@RequestParam(required = false) Integer agentId, @RequestParam(required = false) String status) {
+	public List<DeliveryTask> listTasks(@RequestParam(name = "agentId", required = false) Integer agentId, @RequestParam(name = "status", required = false) String status) {
 		if (agentId != null) {
 			return taskRepo.findByAgentId(agentId);
 		}

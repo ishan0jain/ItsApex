@@ -23,8 +23,10 @@ export class ShopDetailComponent implements OnInit {
     category: new FormControl(''),
     tags: new FormControl(''),
     price: new FormControl(0),
+    currency: new FormControl('INR'),
     quantityAvailable: new FormControl(0),
-    imageUrl: new FormControl('')
+    imageUrl: new FormControl(''),
+    active: new FormControl(true)
   });
 
   constructor(private route: ActivatedRoute, private api: AppServiceService) {}
@@ -73,7 +75,7 @@ export class ShopDetailComponent implements OnInit {
     this.api.createProduct(payload).subscribe({
       next: () => {
         this.message = 'Product saved.';
-        this.productForm.reset({ price: 0, quantityAvailable: 0 });
+        this.productForm.reset({ price: 0, quantityAvailable: 0, currency: 'INR', active: true });
         this.loadProducts(this.shop.shopId);
       },
       error: () => {
