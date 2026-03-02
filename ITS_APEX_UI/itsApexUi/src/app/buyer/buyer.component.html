@@ -38,8 +38,11 @@
                     <input formControlName="deliveryAddress" placeholder="Drop-off location">
                 </div>
                 <div class="input">
-                    <label>Quantity</label>
+                    <label>Quantity (sell units)</label>
                     <input type="number" min="1" formControlName="quantity">
+                    <small *ngIf="selectedProduct?.sellQuantity && selectedProduct?.sellUnit">
+                        Each unit: {{ selectedProduct.sellQuantity }} {{ selectedProduct.sellUnit }}
+                    </small>
                 </div>
             </div>
             <div class="input">

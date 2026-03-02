@@ -32,7 +32,7 @@ export class BuyerComponent implements OnInit {
   }
 
   loadProducts() {
-    this.api.getProducts().subscribe({
+    this.api.getPublicProducts().subscribe({
       next: (data) => (this.products = data || []),
       error: () => (this.products = [])
     });

@@ -21,6 +21,8 @@ public class DatabaseBootstrapper implements CommandLineRunner {
 		try {
 			bootstrapShopSequence();
 			bootstrapProductSequence();
+			bootstrapProductColumns();
+			bootstrapProductImageTable();
 			logTableSchema("dba_product");
 		} catch (Exception e) {
 			log.warn("Database bootstrap skipped: {}", e.getMessage());
@@ -39,6 +41,29 @@ public class DatabaseBootstrapper implements CommandLineRunner {
 		jdbcTemplate.execute("ALTER TABLE dba_product ALTER COLUMN product_id SET DEFAULT nextval('dba_product_product_id_seq')");
 		jdbcTemplate.execute("SELECT setval('dba_product_product_id_seq', COALESCE((SELECT MAX(product_id) FROM dba_product), 0) + 1, false)");
 		log.info("Ensured dba_product.product_id sequence defaults are in place.");
+	}
+
+	private void bootstrapProductColumns() {
+		jdbcTemplate.execute("ALTER TABLE dba_product ADD COLUMN IF NOT EXISTS stock_quantity numeric(12,3)");
+		jdbcTemplate.execute("ALTER TABLE dba_product ADD COLUMN IF NOT EXISTS stock_unit varchar(20)");
+		jdbcTemplate.execute("ALTER TABLE dba_product ADD COLUMN IF NOT EXISTS sell_quantity numeric(12,3)");
+		jdbcTemplate.execute("ALTER TABLE dba_product ADD COLUMN IF NOT EXISTS sell_unit varchar(20)");
+		log.info("Ensured dba_product columns for stock and sell quantities exist.");
+	}
+
+	private void bootstrapProductImageTable() {
+		jdbcTemplate.execute("""
+				CREATE TABLE IF NOT EXISTS dba_product_image (
+					image_id integer primary key,
+					product_id integer,
+					image bytea,
+					content_type varchar(255),
+					file_name varchar(255)
+				)
+				""");
+		jdbcTemplate.execute("CREATE SEQUENCE IF NOT EXISTS dba_product_image_image_id_seq");
+		jdbcTemplate.execute("ALTER TABLE dba_product_image ALTER COLUMN image_id SET DEFAULT nextval('dba_product_image_image_id_seq')");
+		log.info("Ensured dba_product_image table and sequence exist.");
 	}
 
 	private void logTableSchema(String tableName) {

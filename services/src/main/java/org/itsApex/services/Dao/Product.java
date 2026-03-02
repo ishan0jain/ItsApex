@@ -12,7 +12,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,8 +43,20 @@ public class Product {
 	BigDecimal price;
 	String currency;
 	Integer quantityAvailable;
+	@Column(name = "stock_quantity")
+	BigDecimal stockQuantity;
+	@Column(name = "stock_unit")
+	String stockUnit;
+	@Column(name = "sell_quantity")
+	BigDecimal sellQuantity;
+	@Column(name = "sell_unit")
+	String sellUnit;
 	String imageUrl;
 	Boolean active;
 	@Column(name = "created_ts")
 	Instant createdTs;
+
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@com.fasterxml.jackson.annotation.JsonManagedReference("product-images")
+	java.util.List<ProductImage> productImages = new java.util.ArrayList<>();
 }

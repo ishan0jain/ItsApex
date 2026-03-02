@@ -16,26 +16,27 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="dba_shop_image")
+@Table(name = "dba_product_image")
 @Getter
 @Setter
-public class ShopImage {
+public class ProductImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer imageId;
+
 	@Lob
 	@Column(columnDefinition = "bytea")
 	@JsonIgnore
 	byte[] image;
+
 	String contentType;
 	String fileName;
-	@Column(name="shop_id", insertable=false, updatable=false)
-	Integer shopId;
-	
-	
-	
+
+	@Column(name = "product_id", insertable = false, updatable = false)
+	Integer productId;
+
 	@ManyToOne
-	@JoinColumn(name="shop_id")
-	@JsonBackReference
-	ShopDTO shop;
+	@JoinColumn(name = "product_id")
+	@JsonBackReference("product-images")
+	Product product;
 }

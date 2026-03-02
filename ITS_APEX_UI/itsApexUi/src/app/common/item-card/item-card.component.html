@@ -4,13 +4,14 @@
       <h4>{{ product?.name || 'Unnamed item' }}</h4>
       <span class="category">{{ product?.category || 'General' }}</span>
     </div>
-    <span class="badge" *ngIf="product?.quantityAvailable === 0">Out of stock</span>
+    <span class="badge" *ngIf="(product?.stockQuantity === 0) || (product?.quantityAvailable === 0)">Out of stock</span>
   </div>
-  <img class="card-image" src="../../../assets/OIF.jpg" alt="Product image">
+  <img class="card-image" [src]="getProductImageUrl()" alt="Product image">
   <div class="card-body">
     <p>{{ product?.description || 'No description available.' }}</p>
-    <p class="price" *ngIf="product?.price">₹{{ product?.price }}</p>
-    <p class="stock" *ngIf="product?.quantityAvailable !== null">Stock: {{ product?.quantityAvailable }}</p>
+    <p class="price" *ngIf="product?.price">INR {{ product?.price }} <span *ngIf="product?.sellQuantity && product?.sellUnit">for {{ product?.sellQuantity }} {{ product?.sellUnit }}</span></p>
+    <p class="stock" *ngIf="product?.stockQuantity !== null && product?.stockQuantity !== undefined">Stock: {{ product?.stockQuantity }} {{ product?.stockUnit }}</p>
+    <p class="stock" *ngIf="product?.stockQuantity === null || product?.stockQuantity === undefined">Stock: {{ product?.quantityAvailable }}</p>
   </div>
   <div class="card-actions">
     <button class="ghost" type="button" (click)="onAdd()">Add to cart</button>

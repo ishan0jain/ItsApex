@@ -66,7 +66,7 @@ public class OrderController {
 			}
 			Product productEntity = product.get();
 			int quantity = item.getQuantity() == null ? 1 : item.getQuantity();
-			if (productEntity.getQuantityAvailable() != null && productEntity.getQuantityAvailable() < quantity) {
+			if (!hasSufficientStock(productEntity, quantity)) {
 				return ResponseEntity.status(HttpStatus.CONFLICT).build();
 			}
 			OrderItem orderItem = new OrderItem();
@@ -79,8 +79,7 @@ public class OrderController {
 			BigDecimal price = productEntity.getPrice() == null ? BigDecimal.ZERO : productEntity.getPrice();
 			total = total.add(price.multiply(BigDecimal.valueOf(quantity)));
 
-			if (productEntity.getQuantityAvailable() != null) {
-				productEntity.setQuantityAvailable(productEntity.getQuantityAvailable() - quantity);
+			if (decrementStock(productEntity, quantity)) {
 				productRepo.save(productEntity);
 			}
 		}
@@ -128,5 +127,31 @@ public class OrderController {
 		Integer productId;
 		Integer quantity;
 		String customNote;
+	}
+
+	private boolean hasSufficientStock(Product product, int orderUnits) {
+		if (product.getStockQuantity() != null) {
+			BigDecimal sellQuantity = product.getSellQuantity() == null ? BigDecimal.ONE : product.getSellQuantity();
+			BigDecimal required = sellQuantity.multiply(BigDecimal.valueOf(orderUnits));
+			return product.getStockQuantity().compareTo(required) >= 0;
+		}
+		if (product.getQuantityAvailable() != null) {
+			return product.getQuantityAvailable() >= orderUnits;
+		}
+		return true;
+	}
+
+	private boolean decrementStock(Product product, int orderUnits) {
+		if (product.getStockQuantity() != null) {
+			BigDecimal sellQuantity = product.getSellQuantity() == null ? BigDecimal.ONE : product.getSellQuantity();
+			BigDecimal required = sellQuantity.multiply(BigDecimal.valueOf(orderUnits));
+			product.setStockQuantity(product.getStockQuantity().subtract(required));
+			return true;
+		}
+		if (product.getQuantityAvailable() != null) {
+			product.setQuantityAvailable(product.getQuantityAvailable() - orderUnits);
+			return true;
+		}
+		return false;
 	}
 }

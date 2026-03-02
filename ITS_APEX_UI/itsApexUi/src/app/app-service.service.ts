@@ -90,6 +90,10 @@ export class AppServiceService {
     return this.http.get(`${this.apiBase}/products`, { params, withCredentials: true });
   }
 
+  getPublicProducts(): Observable<any> {
+    return this.http.get(`${this.apiBase}/products/public`);
+  }
+
   createProduct(payload: any): Observable<any> {
     const httpOptions = {
       withCredentials: true,
@@ -103,6 +107,24 @@ export class AppServiceService {
   updateInventory(productId: number, quantityAvailable: number): Observable<any> {
     const params = new HttpParams().set('quantityAvailable', quantityAvailable.toString());
     return this.http.patch(`${this.apiBase}/products/${productId}/inventory`, null, { params, withCredentials: true });
+  }
+
+  updateProduct(productId: number, payload: any): Observable<any> {
+    const httpOptions = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.patch(`${this.apiBase}/products/${productId}`, payload, httpOptions);
+  }
+
+  uploadProductImage(productId: number, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.apiBase}/products/${productId}/images`, formData, {
+      withCredentials: true,
+    });
   }
 
   createOrder(payload: any): Observable<any> {

@@ -27,7 +27,7 @@
                         <input formControlName="category">
                     </div>
                     <div class="input">
-                        <label>Price</label>
+                        <label>Price (per sell quantity)</label>
                         <input type="number" formControlName="price">
                     </div>
                     <div class="input">
@@ -35,8 +35,24 @@
                         <input formControlName="currency">
                     </div>
                     <div class="input">
-                        <label>Quantity</label>
-                        <input type="number" formControlName="quantityAvailable">
+                        <label>Sell quantity</label>
+                        <input type="number" formControlName="sellQuantity">
+                    </div>
+                    <div class="input">
+                        <label>Sell unit</label>
+                        <select formControlName="sellUnit">
+                            <option *ngFor="let unit of unitOptions" [value]="unit">{{ unit }}</option>
+                        </select>
+                    </div>
+                    <div class="input">
+                        <label>Stock quantity</label>
+                        <input type="number" formControlName="stockQuantity">
+                    </div>
+                    <div class="input">
+                        <label>Stock unit</label>
+                        <select formControlName="stockUnit">
+                            <option *ngFor="let unit of unitOptions" [value]="unit">{{ unit }}</option>
+                        </select>
                     </div>
                     <div class="input">
                         <label>Image URL</label>
@@ -51,25 +67,43 @@
                     <label>Tags</label>
                     <input formControlName="tags">
                 </div>
-                <div class="input">
-                    <label>
-                        <input type="checkbox" formControlName="active">
-                        Active
-                    </label>
-                </div>
-                <button class="cta" type="button" (click)="addProduct()">Save product</button>
+                <button class="cta" type="button" (click)="addProduct()">
+                    {{ editingProductId ? 'Update product' : 'Save product' }}
+                </button>
+                <button class="ghost" type="button" *ngIf="editingProductId" (click)="cancelEdit()">Cancel</button>
                 <p class="status" *ngIf="message">{{ message }}</p>
             </form>
             <div class="product-list">
                 <div class="product-row" *ngFor="let product of products">
-                    <div>
-                        <h4>{{ product.name }}</h4>
-                        <p>{{ product.description }}</p>
+                    <div class="product-info">
+                        <img class="product-thumb" [src]="getProductImageUrl(product)" alt="Product image">
+                        <div>
+                            <h4>{{ product.name }}</h4>
+                            <p>{{ product.description }}</p>
+                        </div>
                     </div>
-                    <div>
+                    <div class="product-actions">
                         <span class="badge">{{ product.category }}</span>
-                        <p>₹{{ product.price }}</p>
-                        <p>Stock: {{ product.quantityAvailable }}</p>
+                        <p>INR {{ product.price }} <span *ngIf="product.sellQuantity && product.sellUnit">for {{ product.sellQuantity }} {{ product.sellUnit }}</span></p>
+                        <p *ngIf="product.stockQuantity !== null && product.stockQuantity !== undefined">Stock: {{ product.stockQuantity }} {{ product.stockUnit }}</p>
+                        <p *ngIf="product.stockQuantity === null || product.stockQuantity === undefined">Stock: {{ product.quantityAvailable }}</p>
+                        <div class="inline-stock">
+                            <input type="number" [value]="stockEdits[product.productId] ?? (product.stockQuantity ?? product.quantityAvailable ?? 0)" (input)="setStockEdit(product.productId, $any($event.target).value)">
+                            <button class="ghost" type="button" (click)="updateStock(product)" [disabled]="updatingStockId === product.productId">Update stock</button>
+                        </div>
+                        <div class="inline-actions">
+                            <label class="ghost icon-button">
+                                <input type="file" accept="image/*" (change)="uploadProductImage(product, $event)">
+                                <span class="icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                        <path d="M9 4.5c.3 0 .6-.1.8-.3l1.1-1.1c.2-.2.5-.3.8-.3h2.6c.3 0 .6.1.8.3l1.1 1.1c.2.2.5.3.8.3H19c1.7 0 3 1.3 3 3v9c0 1.7-1.3 3-3 3H5c-1.7 0-3-1.3-3-3v-9c0-1.7 1.3-3 3-3h4zm3 4.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 1.8a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4z"/>
+                                    </svg>
+                                </span>
+                                <span class="icon-label">Image</span>
+                            </label>
+                            <button class="ghost" type="button" (click)="editProduct(product)">Edit</button>
+                            <button class="ghost" type="button" (click)="deleteProduct(product)">Remove</button>
+                        </div>
                     </div>
                 </div>
                 <p *ngIf="products.length === 0">No products yet.</p>
