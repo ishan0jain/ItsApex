@@ -23,6 +23,7 @@ public class DatabaseBootstrapper implements CommandLineRunner {
 			bootstrapProductSequence();
 			bootstrapProductColumns();
 			bootstrapProductImageTable();
+			bootstrapCartTables();
 			logTableSchema("dba_product");
 		} catch (Exception e) {
 			log.warn("Database bootstrap skipped: {}", e.getMessage());
@@ -64,6 +65,38 @@ public class DatabaseBootstrapper implements CommandLineRunner {
 		jdbcTemplate.execute("CREATE SEQUENCE IF NOT EXISTS dba_product_image_image_id_seq");
 		jdbcTemplate.execute("ALTER TABLE dba_product_image ALTER COLUMN image_id SET DEFAULT nextval('dba_product_image_image_id_seq')");
 		log.info("Ensured dba_product_image table and sequence exist.");
+	}
+
+	private void bootstrapCartTables() {
+		jdbcTemplate.execute("""
+				CREATE TABLE IF NOT EXISTS dba_cart (
+					cart_id integer primary key,
+					user_id integer,
+					cart_name varchar(120),
+					default_cart boolean default false,
+					created_ts timestamp with time zone,
+					updated_ts timestamp with time zone
+				)
+				""");
+		jdbcTemplate.execute("CREATE SEQUENCE IF NOT EXISTS dba_cart_cart_id_seq");
+		jdbcTemplate.execute("ALTER TABLE dba_cart ALTER COLUMN cart_id SET DEFAULT nextval('dba_cart_cart_id_seq')");
+		jdbcTemplate.execute("SELECT setval('dba_cart_cart_id_seq', COALESCE((SELECT MAX(cart_id) FROM dba_cart), 0) + 1, false)");
+
+		jdbcTemplate.execute("""
+				CREATE TABLE IF NOT EXISTS dba_cart_item (
+					cart_item_id integer primary key,
+					cart_id integer,
+					product_id integer,
+					quantity integer,
+					custom_note varchar(255),
+					created_ts timestamp with time zone,
+					updated_ts timestamp with time zone
+				)
+				""");
+		jdbcTemplate.execute("CREATE SEQUENCE IF NOT EXISTS dba_cart_item_cart_item_id_seq");
+		jdbcTemplate.execute("ALTER TABLE dba_cart_item ALTER COLUMN cart_item_id SET DEFAULT nextval('dba_cart_item_cart_item_id_seq')");
+		jdbcTemplate.execute("SELECT setval('dba_cart_item_cart_item_id_seq', COALESCE((SELECT MAX(cart_item_id) FROM dba_cart_item), 0) + 1, false)");
+		log.info("Ensured dba_cart and dba_cart_item tables and sequences exist.");
 	}
 
 	private void logTableSchema(String tableName) {

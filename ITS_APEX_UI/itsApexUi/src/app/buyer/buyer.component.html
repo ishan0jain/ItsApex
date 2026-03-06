@@ -5,9 +5,15 @@
             <h2>Browse and order with confidence</h2>
             <p>Every product is tied to a verified shop with compliance-ready onboarding.</p>
         </div>
-        <div class="input search">
-            <label>Search products</label>
-            <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name, category, or description">
+        <div class="buyer-actions">
+            <div class="input search">
+                <label>Search products</label>
+                <input type="text" [(ngModel)]="searchTerm" placeholder="Search by name, category, or description">
+            </div>
+            <button class="cart-icon" type="button" (click)="openCartDrawer()">
+                <span>Cart</span>
+                <span class="cart-count" *ngIf="cartItemCount()">{{ cartItemCount() }}</span>
+            </button>
         </div>
     </div>
     <p class="order-message" *ngIf="orderMessage">{{ orderMessage }}</p>
@@ -19,6 +25,33 @@
             (addToCart)="onAdd($event)"
             (buyNow)="onBuy($event)">
         </app-item-card>
+    </div>
+
+    <div class="cart-modal" *ngIf="showCartModal">
+        <div class="cart-modal-backdrop" (click)="closeCartModal()"></div>
+        <div class="cart-modal-card card">
+            <h3>Select a cart</h3>
+            <p class="cart-subtitle">Add {{ cartProduct?.name }} to:</p>
+            <div class="cart-options">
+                <button
+                    class="ghost"
+                    type="button"
+                    *ngFor="let cart of carts"
+                    (click)="addItemToCart(cart.cartId)">
+                    {{ truncateCartName(cart.cartName) }} <span *ngIf="cart.defaultCart">(Default)</span>
+                </button>
+            </div>
+            <div class="cart-create">
+                <label>New cart name</label>
+                <div class="cart-create-row">
+                <input type="text" [(ngModel)]="newCartName" maxlength="30" placeholder="Ex: Monthly supplies">
+                <button class="cta" type="button" (click)="createCart()">Create</button>
+            </div>
+        </div>
+            <div class="actions">
+                <button class="ghost" type="button" (click)="closeCartModal()">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <div class="order-panel card" *ngIf="selectedProduct">
@@ -60,3 +93,51 @@
         </form>
     </div>
 </section>
+
+<div class="cart-drawer" *ngIf="cartDrawerOpen">
+    <div class="cart-modal-backdrop" (click)="closeCartDrawer()"></div>
+    <div class="cart-drawer-panel card">
+        <div class="cart-drawer-header">
+            <div>
+                <h3>{{ activeCartName || 'Your cart' }}</h3>
+                <p class="cart-subtitle">Review items and manage carts.</p>
+            </div>
+            <button class="ghost" type="button" (click)="closeCartDrawer()">Close</button>
+        </div>
+        <div class="cart-tabs" *ngIf="carts.length">
+            <button
+                class="ghost"
+                type="button"
+                *ngFor="let cart of carts"
+                (click)="selectCart(cart.cartId)"
+                [class.active]="isActiveCart(cart.cartId)">
+                {{ truncateCartName(cart.cartName) }} <span *ngIf="cart.defaultCart">(Default)</span>
+            </button>
+        </div>
+        <div class="cart-items">
+            <p *ngIf="cartLoading">Loading cart...</p>
+            <p *ngIf="!cartLoading && !cartItems.length">No items yet.</p>
+            <div class="cart-item" *ngFor="let item of cartItems">
+                <div>
+                    <strong>{{ item.productName }}</strong>
+                    <div class="cart-meta">
+                        Qty: {{ item.quantity }}
+                        <span *ngIf="item.sellQuantity && item.sellUnit">
+                            ({{ item.sellQuantity }} {{ item.sellUnit }} each)
+                        </span>
+                    </div>
+                </div>
+                <div class="cart-price" *ngIf="item.price">
+                    {{ item.price }} {{ item.currency || '' }}
+                </div>
+            </div>
+        </div>
+        <div class="cart-create">
+            <label>New cart name</label>
+            <div class="cart-create-row">
+                <input type="text" [(ngModel)]="newCartName" maxlength="30" placeholder="Ex: Weekend orders">
+                <button class="cta" type="button" (click)="createCart()">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

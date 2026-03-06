@@ -137,6 +137,44 @@ export class AppServiceService {
     return this.http.post(`${this.apiBase}/orders`, payload, httpOptions);
   }
 
+  getCarts(): Observable<any> {
+    return this.http.get(`${this.apiBase}/carts`, { withCredentials: true });
+  }
+
+  getCart(cartId: number): Observable<any> {
+    return this.http.get(`${this.apiBase}/carts/${cartId}`, { withCredentials: true });
+  }
+
+  createCart(payload: any): Observable<any> {
+    const httpOptions = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post(`${this.apiBase}/carts`, payload, httpOptions);
+  }
+
+  addCartItemToDefault(payload: any): Observable<any> {
+    const httpOptions = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post(`${this.apiBase}/carts/items`, payload, httpOptions);
+  }
+
+  addCartItem(cartId: number, payload: any): Observable<any> {
+    const httpOptions = {
+      withCredentials: true,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+    return this.http.post(`${this.apiBase}/carts/${cartId}/items`, payload, httpOptions);
+  }
+
   getOrders(shopId?: number): Observable<any> {
     let params = new HttpParams();
     if (shopId) {
